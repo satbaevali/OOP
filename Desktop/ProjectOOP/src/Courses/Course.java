@@ -2,10 +2,7 @@ package Courses;
 import Users.*;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Course {
     private static final Map<String, Course> courseRegistry = new HashMap<>(); // Static registry of all courses
@@ -25,6 +22,11 @@ public class Course {
         this.credits = credits;
         this.enrolledStudents = new ArrayList<>();
     }
+
+    public Course(String courseTitle) {
+        this.title = courseTitle;
+    }
+
     public static Map<String, Course> getCourseRegistry() {
         return courseRegistry;
     }
@@ -133,5 +135,28 @@ public class Course {
                 ", instructor=" + (teacher!= null ? teacher.getName() : "None") +
                 ", enrolledStudents=" + enrolledStudents.size() +
                 '}';
+    }
+
+    public void assignTeacher(Teacher teacher) {
+        if (teacher != null) {
+            this.teacher = teacher;
+            teacher.addCourse(this); // Add this course to the teacher's list
+            System.out.println("Teacher " + teacher.getName() + " assigned to course: " + title);
+        } else {
+            System.out.println("Cannot assign a null teacher to the course.");
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return credits == course.credits && year == course.year && Objects.equals(id, course.id) && Objects.equals(title, course.title) && Objects.equals(major, course.major) && Objects.equals(enrolledStudents, course.enrolledStudents) && Objects.equals(teacher, course.teacher);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, credits, major, year, enrolledStudents, teacher);
     }
 }

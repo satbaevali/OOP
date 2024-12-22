@@ -57,5 +57,4 @@ public class Lesson {
     public int hashCode() {
         return Objects.hash(course, lessonType, roomForLesson);
     }
-
 }

@@ -1,21 +1,16 @@
 package panel;
 
 import java.util.Scanner;
-import java.io.*;
-import java.util.*;
 
-import panel.*;
-import Enums.*;
 import Users.*;
 import Courses.*;
-import Social.*;
 
-public class ViewStudent extends ViewBase {
+public class StudentPanel extends ViewBase {
     private Student student;
     private Scanner scanner;
     private static Language currentLanguage = Language.EN;
 
-    public ViewStudent(Student student) {
+    public StudentPanel(Student student) {
         this.student = student;
         this.scanner = new Scanner(System.in);
     }
@@ -63,7 +58,9 @@ public class ViewStudent extends ViewBase {
                 case 6 -> viewTranscript();
                 case 7 -> rateTeachers();
                 case 8 -> viewTranscript();
-                case 10 -> exit = true;
+                case 9 -> changeStudentPassword();
+                case 10 ->viewOrganization();
+                case 0 -> exit = true;
                 default -> System.out.println("Invalid option. Please try again.");
             }
         }
@@ -132,4 +129,18 @@ public class ViewStudent extends ViewBase {
             System.out.println("Unable to rate teachers as student is not found.");
         }
     }
+    public void changeStudentPassword() {
+        System.out.println("Enter your current password:");
+        String oldPassword = scanner.nextLine();
+
+        System.out.println("Enter your new password:");
+        String newPassword = scanner.nextLine();
+
+        if (student.changePassword(oldPassword, newPassword)) {
+            System.out.println("Password changed successfully.");
+        } else {
+            System.out.println("Failed to change password. Please try again.");
+        }
+    }
+
 }

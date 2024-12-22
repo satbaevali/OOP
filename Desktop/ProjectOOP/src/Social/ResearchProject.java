@@ -2,7 +2,11 @@ package Social;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import Exception.*;
+import Users.Researcher;
+
 
 public class ResearchProject {
     private String topic;
@@ -33,6 +37,28 @@ public class ResearchProject {
 
     public List<Researcher> getParticipants() {
         return participants;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ResearchProject that = (ResearchProject) o;
+        return Objects.equals(topic, that.topic) && Objects.equals(participants, that.participants) && Objects.equals(publishedPapers, that.publishedPapers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(topic, participants, publishedPapers);
+    }
+
+    @Override
+    public String toString() {
+        return "ResearchProject{" +
+                "topic='" + topic + '\'' +
+                ", participants=" + participants +
+                ", publishedPapers=" + publishedPapers +
+                '}';
     }
 }
 

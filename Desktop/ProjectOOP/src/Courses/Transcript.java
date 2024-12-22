@@ -4,6 +4,7 @@ import Enums.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Transcript {
     private Student student;
@@ -71,5 +72,18 @@ public class Transcript {
         return courseMark.keySet().stream()
                 .mapToInt(Course::getCredits)
                 .sum();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transcript that = (Transcript) o;
+        return Objects.equals(student, that.student) && Objects.equals(courseMark, that.courseMark);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(student, courseMark);
     }
 }

@@ -1,7 +1,10 @@
 package Pattern;
-import Social.*;
+
+import Social.ResearchPaper;
 import java.util.*;
-public class hIndexStrategy implements hIndexCalculation{
+import Pattern.*;
+public class hIndexStrategy implements hIndexCalculation {
+    @Override
     public int calculateHIndex(List<ResearchPaper> papers) {
         papers.sort(Comparator.comparingInt(ResearchPaper::getCitations).reversed());
         int hIndex = 0;
@@ -15,4 +18,3 @@ public class hIndexStrategy implements hIndexCalculation{
         return hIndex;
     }
 }
-

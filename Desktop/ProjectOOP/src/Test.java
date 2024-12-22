@@ -1,13 +1,12 @@
 import Courses.Course;
 import Courses.Mark;
 import Courses.Transcript;
-import Enums.*;
 import Enums.TeacherTitle;
 import Enums.TypeOfMark;
 import Social.News;
 import Users.Student;
 import Users.Teacher;
-import panel.ViewStudent;
+import panel.StudentPanel;
 
 import java.util.Date;
 
@@ -41,7 +40,7 @@ public class Test {
 
 
         // Инициализация интерфейса студента
-        ViewStudent viewStudent = new ViewStudent(student);
+        StudentPanel viewStudent = new StudentPanel(student);
 
         // Запуск меню
         viewStudent.changeLanguage();

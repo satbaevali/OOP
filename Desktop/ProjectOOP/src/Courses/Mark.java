@@ -172,4 +172,5 @@ public class Mark {
     public int hashCode() {
         return course.hashCode() + (int) totalAtt;
     }
+
 }

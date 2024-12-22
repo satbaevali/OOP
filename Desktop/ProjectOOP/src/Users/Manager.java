@@ -5,7 +5,7 @@ import Courses.*;
 import Social.*;
 import java.util.*;
 
-public class Manager extends Employee {
+public class Manager extends Employee implements ManageNews {
     private final ManagerType managerType;
 
     // Constructor
@@ -81,5 +81,33 @@ public class Manager extends Employee {
         return "Manager{" +
                 "managerType=" + managerType +
                 '}'+super.toString();
+    }
+
+    public boolean reportNews(News news) {
+        // Check if the news is already in the system before adding it
+        if (News.getNewsList().contains(news)) {
+            return false;  // News already reported
+        }
+        News.addNews(news);  // Add news to the list
+        return true;
+    }
+
+    @Override
+    public boolean removeNews(News news) {
+        return News.getNewsList().remove(news);  // Remove news from the list
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Manager manager = (Manager) o;
+        return managerType == manager.managerType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), managerType);
     }
 }

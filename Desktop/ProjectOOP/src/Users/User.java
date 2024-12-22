@@ -43,6 +43,9 @@ public class User implements Comparable<User> {
     public String getLastName() {
         return lastName;
     }
+    public static User getUserById(String id) {
+        return findUser(id);
+    }
 
     public String getPassword() {
         return password;

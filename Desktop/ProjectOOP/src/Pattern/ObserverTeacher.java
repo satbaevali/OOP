@@ -6,4 +6,5 @@ public interface ObserverTeacher {
     void viewStudentsInfo();
     void putMarks();
     void sendMessages();
+    void update(String message);
 }

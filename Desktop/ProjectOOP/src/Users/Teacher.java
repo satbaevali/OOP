@@ -2,17 +2,18 @@ package Users;
 
 import Courses.*;
 import Enums.*;
+import Pattern.hIndexCalculation;
 import Social.*;
-import Pattern.ObserverTeacher;
 import Social.ResearchPaper;
-import Social.Researcher;
+
 import java.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public  class Teacher extends Employee implements Researcher {
+public  class Teacher extends Employee{
+    private static Map<String, Teacher> teacherRegistry = new HashMap<>();
     private List<Course> courseList;
     private TeacherTitle title;
     private boolean isProfessor;
@@ -26,7 +27,11 @@ public  class Teacher extends Employee implements Researcher {
     public Teacher(String id, String name, String lastName, String email, String password,int experience, String department, TeacherTitle title) {
         super(id, name, lastName, email, password,  experience, department);
         this.title = title;
+        teacherRegistry.put(id, this);
     }
+
+
+
     public void viewStudents(Course course) {
         List<Student> enrolledStudents = course.getEnrolledStudents();  // Получаем список студентов, записанных на курс
 
@@ -38,6 +43,21 @@ public  class Teacher extends Employee implements Researcher {
                 System.out.println(student.getName() + " " + student.getLastName() + ", ID: " + student.getId());
                 // Вы можете добавить дополнительные поля для вывода, если нужно
             }
+        }
+    }
+    public static Teacher getTeacherById(String id) {
+        return teacherRegistry.get(id);
+    }
+    public static boolean assignTeacher(String teacherId, Course course) {
+        Teacher teacher = getTeacherById(teacherId); // Retrieve the teacher by ID
+        if (teacher != null && course != null) {
+            teacher.addCourse(course); // Add course to teacher's course list
+            course.assignTeacher(teacher); // Assign teacher to course
+            System.out.println("Assigned teacher " + teacher.getName() + " to course " + course.getTitle() + ".");
+            return true;
+        } else {
+            System.out.println("Teacher or course not found.");
+            return false;
         }
     }
     public void calculateHIndex() {

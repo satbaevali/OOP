@@ -4,6 +4,7 @@ import Courses.*;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
+import Users.*;
 
 public class Student extends User {
     private int yearOfStudy;
@@ -32,6 +33,30 @@ public class Student extends User {
         this.major = major;
         this.transcript = new Transcript(this);
 
+    }
+
+    public Student(String userId, String name) {
+        super();
+    }
+
+    public boolean changePassword(String oldPassword, String newPassword) {
+        if (!this.getPassword().equals(oldPassword)) {
+            System.out.println("Incorrect old password.");
+            return false;
+        }
+        if (!isValidPassword(newPassword)) {
+            System.out.println("The new password does not meet security requirements.");
+            return false;
+        }
+        this.setPassword(newPassword);
+        System.out.println("Password changed successfully.");
+        return true;
+    }
+
+    private boolean isValidPassword(String password) {
+        return password.length() >= 8
+                && password.matches(".*\\d.*")
+                && password.matches(".*[!@#$%^&*].*");
     }
 
 

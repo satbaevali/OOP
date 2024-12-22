@@ -1,4 +1,6 @@
-package Social;
+package Pattern;
+
+import Social.ResearchPaper;
 
 import java.util.List;
 
